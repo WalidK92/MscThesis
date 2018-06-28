@@ -14,8 +14,7 @@ library(Metrics)
 library(caret)
 
 #Please ensure that the Data is saved in a '.csv' format
-#Copy the path to where your Data has been saved in your PC in place of the existing path.
-
+#Copy the path to where the given DataSet has been saved in your PC in between the "..."
 
 cat('Loading Data==============>\n\n')
 Trial <- read_csv("C:/Users/Walid/Desktop/Thesis_1/Codes/Dataset.csv")
@@ -173,7 +172,7 @@ Predictions_GradientBoosting <- predict(gbmMod, UserData, n.trees = 500)
 #Using Stacked Model Model
 Predictions_StackedModel <- Predictions_GradientBoosting*(gb / gb_rf_lm) + Predictions_RandomForest*(rf / gb_rf_lm) + Predictions_LinearModel*(lm/gb_rf_lm)
 
-#Exporting Predicted Values Individually and Saving them in 'DOCUMENTS' Folder.
+#Exporting Predicted Values Individually and Saving them in 'DOCUMENTS' Folder on your PC.
 write.csv(data.frame(Predictions_LinearModel), "Predictions_LinearModel.csv")
 write.csv(data.frame(Predictions_RandomForest), "Predictions_RandomForest.csv")
 write.csv(data.frame(Predictions_GradientBoosting), "Predictions_GradientBoosting.csv")
