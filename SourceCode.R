@@ -173,11 +173,30 @@ Predictions_GradientBoosting <- predict(gbmMod, UserData, n.trees = 500)
 #Using Stacked Model Model
 Predictions_StackedModel <- Predictions_GradientBoosting*(gb / gb_rf_lm) + Predictions_RandomForest*(rf / gb_rf_lm) + Predictions_LinearModel*(lm/gb_rf_lm)
 
-#Exporting Predicted Values Individually and Saving them in 'DOCUMENTS' Folder.
-All_Predictions = cbind(c(Predictions_LinearModel), c(Predictions_RandomForest), c(Predictions_GradientBoosting),c(Predictions_StackedModel))
-colnames(All_Predictions) =c("LinearModel", "RandomForest", "GradientBoosting", "StackedModel")
+#Exporting Predicted Values  and Saving them in 'DOCUMENTS' Folder.
 
-write.csv(All_Predictions, "All_Predictions.csv")
+All_Predictions <-  cbind(c(Predictions_LinearModel), c(Predictions_RandomForest), c(Predictions_GradientBoosting)
+                          ,c(Predictions_StackedModel))
+
+#Computing the Averages of all Predictions Row Wise.
+i <- 1
+while(TRUE)
+{
+  Average_Predictions[i] <- mean(All_Predictions[i,])
+  i <- i+1
+  if(i > nrow(All_Predictions)) 
+  {
+    break
+  }
+}
+
+Total_Predictions <-  cbind(c(Predictions_LinearModel), c(Predictions_RandomForest), c(Predictions_GradientBoosting)
+                          ,c(Predictions_StackedModel), c(Average_Predictions))
+
+colnames(Total_Predictions) <- c("LinearModel", "RandomForest", "GradientBoosting",
+                               "StackedModel", "Average_Predictions")
+
+write.csv(Total_Predictions, "Total_Predictions.csv")
 
 
 #--------*--------*END OF USER BASED CODE*--------*--------*#
