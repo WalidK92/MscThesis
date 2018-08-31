@@ -179,6 +179,7 @@ All_Predictions <-  cbind(c(Predictions_LinearModel), c(Predictions_RandomForest
                           ,c(Predictions_StackedModel))
 
 #Computing the Averages of all Predictions Row Wise.
+Average_Predictions <- list()
 i <- 1
 while(TRUE)
 {
